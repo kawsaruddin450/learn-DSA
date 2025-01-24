@@ -44,6 +44,33 @@ Node *remove_node(Node *head, Node *node){
     }
 }
 
+//add node at first
+Node * prepend(Node *head, int item){
+    Node *new_node = create_node(item, head);
+    return new_node;
+}
+
+//add node at last
+Node *append(Node *head, int item){
+    Node *new_node = create_node(item, NULL);
+    if(head==NULL){
+        return new_node;
+    }else{
+        Node *current_node = head;
+        while(current_node->next != NULL){
+            current_node = current_node-> next;
+        }
+        current_node->next = new_node;
+        return head;
+    }
+}
+
+//add node anywhere
+void insert(Node *node, int item){
+    Node *new_node = create_node(item, node->next);
+    node->next = new_node;
+}
+
 int main(){
     Node *n;
     n = create_node(10, NULL);
