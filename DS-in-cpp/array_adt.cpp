@@ -10,6 +10,8 @@ struct Array
     int length;
 };
 
+
+
 // display the array
 void Display(struct Array arr)
 {
@@ -65,6 +67,8 @@ int Delete(struct Array *arr, int index)
     }
 }
 
+
+//Linear search on the array
 int LinearSearch(Array *arr, int key){
     for(int i=0; i<arr->length; i++){
         if(arr->A[i]==key){
@@ -74,13 +78,33 @@ int LinearSearch(Array *arr, int key){
     return -1;
 }
 
+//Binary search on the array
+int BinarySearch(Array arr, int key){
+    int l, h, mid=0;
+    l=0;
+    h=arr.length -1;
+    while(l<=h){
+        mid = (l+h)/2;
+        if(arr.A[mid]==key){
+            return mid;
+        }
+        else if(arr.A[mid]>key){
+            h = mid-1;
+        }
+        else{
+            l = mid+1;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
-    struct Array arr = {{1, 2, 3, 4, 5}, 20, 5};
+    struct Array arr = {{10, 11, 15, 18, 21, 24, 28, 31, 35, 39, 40, 56, 59, 80}, 20, 14};
 
 
     Display(arr);
-    cout << LinearSearch(&arr, 11) << endl;
+    cout << BinarySearch(arr, 35) << endl;
 
     return 0;
 }
