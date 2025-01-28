@@ -133,6 +133,20 @@ int Min(Array arr){
     return min;
 }
 
+//sum of the array
+int Sum(Array arr){
+    int s = 0;
+    for(int i=0; i<arr.length; i++){
+        s += arr.A[i];
+    }
+    return s;
+}
+
+//avarage of an array
+float Avarage(Array arr){
+    return (float) Sum(arr)/arr.length;
+}
+
 int main()
 {
     struct Array arr = {{10, 11, 15, 18, 21, 24, 28, 31, 35, 39, 40, 56, 59, 80}, 20, 14};
@@ -142,6 +156,7 @@ int main()
     cout << Get(arr, 7) << endl;
     cout << Max(arr) << endl;
     cout << Min(arr) << endl;
+    cout << Avarage(arr) << endl;
     Display(arr);
 
     return 0;
