@@ -10,6 +10,7 @@ struct Array
     int length;
 };
 
+// display the array
 void Display(struct Array arr)
 {
     for (int i = 0; i < arr.length; i++)
@@ -18,6 +19,7 @@ void Display(struct Array arr)
     }
 }
 
+// Append - add an element at the end of the array.
 void Append(struct Array *arr, int x)
 {
     if (arr->length < arr->size)
@@ -27,6 +29,7 @@ void Append(struct Array *arr, int x)
     }
 }
 
+// Insert - Add an element at any index of the array.
 void Insert(struct Array *arr, int index, int x)
 {
     if (index >= 0 && index <= arr->length + 1 && index < arr->size)
@@ -43,12 +46,33 @@ void Insert(struct Array *arr, int index, int x)
     }
 }
 
+
+//Delete an element from the array
+int Delete(struct Array *arr, int index)
+{
+    if (index >= 0 && index < arr->length - 1)
+    {
+        int item = arr->A[index];
+        for (int i = index; i < arr->length - 1; i++)
+        {
+            arr->A[i] = arr->A[i + 1];
+        }
+        arr->length--;
+        return item;
+    }
+    else{
+        return 0;
+    }
+}
+
 int main()
 {
     struct Array arr = {{1, 2, 3, 4, 5}, 20, 5};
 
     Append(&arr, 6);
     Insert(&arr, 0, 10);
+    int deleted = Delete(&arr, 0);
+    printf("Deleted Item: %d\n", deleted);
     Display(arr);
 
     return 0;
