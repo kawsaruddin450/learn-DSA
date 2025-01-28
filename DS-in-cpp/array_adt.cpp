@@ -10,7 +10,20 @@ struct Array
     int length;
 };
 
+//get function
+int Get(Array arr, int index){
+    if(index>=0 && index< arr.length){
+        return arr.A[index];
+    }
+    return 0;
+}
 
+//set function
+void Set(Array *arr, int index, int x){
+    if(index>=0 && index<arr->length){
+        arr->A[index] = x;
+    }
+}
 
 // display the array
 void Display(struct Array arr)
@@ -103,8 +116,9 @@ int main()
     struct Array arr = {{10, 11, 15, 18, 21, 24, 28, 31, 35, 39, 40, 56, 59, 80}, 20, 14};
 
 
+    Set(&arr, 6, 6);
+    cout << Get(arr, 7) << endl;
     Display(arr);
-    cout << BinarySearch(arr, 35) << endl;
 
     return 0;
 }
