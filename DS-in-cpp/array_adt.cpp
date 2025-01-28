@@ -65,15 +65,22 @@ int Delete(struct Array *arr, int index)
     }
 }
 
+int LinearSearch(Array *arr, int key){
+    for(int i=0; i<arr->length; i++){
+        if(arr->A[i]==key){
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
     struct Array arr = {{1, 2, 3, 4, 5}, 20, 5};
 
-    Append(&arr, 6);
-    Insert(&arr, 0, 10);
-    int deleted = Delete(&arr, 0);
-    printf("Deleted Item: %d\n", deleted);
+
     Display(arr);
+    cout << LinearSearch(&arr, 11) << endl;
 
     return 0;
 }
