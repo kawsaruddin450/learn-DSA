@@ -3,10 +3,11 @@
 #include <stdlib.h>
 using namespace std;
 
+template<class T>
 class Array
 {
 private:
-    int *A;
+    T *A;
     int size;
     int length;
 
@@ -15,42 +16,43 @@ public:
     {
         size = 10;
         length = 0;
-        A = new int[size];
+        A = new T[size];
     }
     Array(int sz)
     {
         size = sz;
         length = 0;
-        A = new int[size];
+        A = new T[size];
     }
     ~Array()
     {
         delete[] A;
     }
 
-    int Get(int index);
-    void Set(int index, int x);
+    T Get(int index);
+    void Set(int index, T x);
     void Display();
-    void Append(int x);
-    void Insert(int index, int x);
-    int Delete(int index);
-    int LinearSearch(int key);
-    int BinarySearch(int key);
-    int Max();
-    int Min();
-    int Sum();
+    void Append(T x);
+    void Insert(int index, T x);
+    T Delete(int index);
+    int LinearSearch(T key);
+    int BinarySearch(T key);
+    T Max();
+    T Min();
+    T Sum();
     float Avarage();
     void Reverse();
 };
 
 int main()
 {
-    int ch, x, index, s, sz;
+    cout << endl;
+    int ch, index, s, sz, x;
     float avg;
     cout << "Enter size of the array: ";
     cin >> sz;
 
-    Array arr(sz);
+    Array<int> arr(sz);
 
     do
     {
@@ -103,7 +105,8 @@ int main()
 }
 
 // get function
-int Array::Get(int index)
+template<class T>
+T Array<T>::Get(int index)
 {
     if (index >= 0 && index < length)
     {
@@ -113,7 +116,8 @@ int Array::Get(int index)
 }
 
 // set function
-void Array::Set(int index, int x)
+template<class T>
+void Array<T>::Set(int index, T x)
 {
     if (index >= 0 && index < length)
     {
@@ -122,7 +126,8 @@ void Array::Set(int index, int x)
 }
 
 // display the array
-void Array::Display()
+template<class T>
+void Array<T>::Display()
 {
     for (int i = 0; i < length; i++)
     {
@@ -132,7 +137,8 @@ void Array::Display()
 }
 
 // Append - add an element at the end of the array.
-void Array::Append(int x)
+template<class T>
+void Array<T>::Append(T x)
 {
     if (length < size)
     {
@@ -142,7 +148,8 @@ void Array::Append(int x)
 }
 
 // Insert - Add an element at any index of the array.
-void Array::Insert(int index, int x)
+template<class T>
+void Array<T>::Insert(int index, T x)
 {
     if (index >= 0 && index <= length + 1 && index < size)
     {
@@ -159,11 +166,12 @@ void Array::Insert(int index, int x)
 }
 
 // Delete an element from the array
-int Array::Delete(int index)
+template<class T>
+T Array<T>::Delete(int index)
 {
     if (index >= 0 && index < length - 1)
     {
-        int item = A[index];
+        T item = A[index];
         for (int i = index; i < length - 1; i++)
         {
             A[i] = A[i + 1];
@@ -178,7 +186,8 @@ int Array::Delete(int index)
 }
 
 // Linear search on the array
-int Array::LinearSearch(int key)
+template<class T>
+int Array<T>::LinearSearch(T key)
 {
     for (int i = 0; i < length; i++)
     {
@@ -191,7 +200,8 @@ int Array::LinearSearch(int key)
 }
 
 // Binary search on the array
-int Array::BinarySearch(int key)
+template<class T>
+int Array<T>::BinarySearch(T key)
 {
     int l, h, mid = 0;
     l = 0;
@@ -216,9 +226,10 @@ int Array::BinarySearch(int key)
 }
 
 // find the max function
-int Array::Max()
+template<class T>
+T Array<T>::Max()
 {
-    int max = A[0];
+    T max = A[0];
     for (int i = 1; i < length; i++)
     {
         if (A[i] > max)
@@ -230,9 +241,10 @@ int Array::Max()
 }
 
 // find the minimum function
-int Array::Min()
+template<class T>
+T Array<T>::Min()
 {
-    int min = A[0];
+    T min = A[0];
     for (int i = 1; i < length; i++)
     {
         if (A[i] < min)
@@ -244,9 +256,10 @@ int Array::Min()
 }
 
 // sum of the array
-int Array::Sum()
+template<class T>
+T Array<T>::Sum()
 {
-    int s = 0;
+    T s = 0;
     for (int i = 0; i < length; i++)
     {
         s += A[i];
@@ -255,15 +268,17 @@ int Array::Sum()
 }
 
 // avarage of an array
-float Array::Avarage()
+template<class T>
+float Array<T>::Avarage()
 {
     return (float)Sum() / length;
 }
 
 // Reverse the array
-void Array::Reverse()
+template<class T>
+void Array<T>::Reverse()
 {
-    int swap;
+    T swap;
     for (int i = 0, j = length - 1; i <= j; i++, j--)
     {
         swap = A[i];
