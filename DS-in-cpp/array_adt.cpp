@@ -147,16 +147,23 @@ float Avarage(Array arr){
     return (float) Sum(arr)/arr.length;
 }
 
+//Reverse the array
+void Reverse(Array *arr){
+    int swap;
+    for(int i=0, j=arr->length-1; i<=j; i++, j--){
+        swap = arr->A[i];
+        arr->A[i] = arr->A[j];
+        arr->A[j] = swap;
+    }
+}
+
 int main()
 {
     struct Array arr = {{10, 11, 15, 18, 21, 24, 28, 31, 35, 39, 40, 56, 59, 80}, 20, 14};
 
 
-    Set(&arr, 6, 6);
-    cout << Get(arr, 7) << endl;
-    cout << Max(arr) << endl;
-    cout << Min(arr) << endl;
-    cout << Avarage(arr) << endl;
+    Display(arr);
+    Reverse(&arr);
     Display(arr);
 
     return 0;
