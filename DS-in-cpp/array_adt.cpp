@@ -3,192 +3,54 @@
 #include <stdlib.h>
 using namespace std;
 
-struct Array
+class Array
 {
+private:
     int *A;
-    int size=0;
-    int length=0;
+    int size;
+    int length;
+
+public:
+    Array()
+    {
+        size = 10;
+        length = 0;
+        A = new int[size];
+    }
+    Array(int sz)
+    {
+        size = sz;
+        length = 0;
+        A = new int[size];
+    }
+    ~Array()
+    {
+        delete[] A;
+    }
+
+    int Get(int index);
+    void Set(int index, int x);
+    void Display();
+    void Append(int x);
+    void Insert(int index, int x);
+    int Delete(int index);
+    int LinearSearch(int key);
+    int BinarySearch(int key);
+    int Max();
+    int Min();
+    int Sum();
+    float Avarage();
+    void Reverse();
 };
-
-// get function
-int Get(Array arr, int index)
-{
-    if (index >= 0 && index < arr.length)
-    {
-        return arr.A[index];
-    }
-    return 0;
-}
-
-// set function
-void Set(Array *arr, int index, int x)
-{
-    if (index >= 0 && index < arr->length)
-    {
-        arr->A[index] = x;
-    }
-}
-
-// display the array
-void Display(Array arr)
-{
-    for (int i = 0; i < arr.length; i++)
-    {
-        printf("%d ", arr.A[i]);
-    }
-    cout << endl;
-}
-
-// Append - add an element at the end of the array.
-void Append(struct Array *arr, int x)
-{
-    if (arr->length < arr->size)
-    {
-        arr->A[arr->length] = x;
-        arr->length++;
-    }
-}
-
-// Insert - Add an element at any index of the array.
-void Insert(struct Array *arr, int index, int x)
-{
-    if (index >= 0 && index <= arr->length + 1 && index < arr->size)
-    {
-        if (arr->length < arr->size)
-        {
-            arr->length++;
-            for (int i = arr->length - 1; i > index; i--)
-            {
-                arr->A[i] = arr->A[i - 1];
-            }
-            arr->A[index] = x;
-        }
-    }
-}
-
-// Delete an element from the array
-int Delete(struct Array *arr, int index)
-{
-    if (index >= 0 && index < arr->length - 1)
-    {
-        int item = arr->A[index];
-        for (int i = index; i < arr->length - 1; i++)
-        {
-            arr->A[i] = arr->A[i + 1];
-        }
-        arr->length--;
-        return item;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-// Linear search on the array
-int LinearSearch(Array *arr, int key)
-{
-    for (int i = 0; i < arr->length; i++)
-    {
-        if (arr->A[i] == key)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-// Binary search on the array
-int BinarySearch(Array arr, int key)
-{
-    int l, h, mid = 0;
-    l = 0;
-    h = arr.length - 1;
-    while (l <= h)
-    {
-        mid = (l + h) / 2;
-        if (arr.A[mid] == key)
-        {
-            return mid;
-        }
-        else if (arr.A[mid] > key)
-        {
-            h = mid - 1;
-        }
-        else
-        {
-            l = mid + 1;
-        }
-    }
-    return -1;
-}
-
-// find the max function
-int Max(Array arr)
-{
-    int max = arr.A[0];
-    for (int i = 1; i < arr.length; i++)
-    {
-        if (arr.A[i] > max)
-        {
-            max = arr.A[i];
-        }
-    }
-    return max;
-}
-
-// find the minimum function
-int Min(Array arr)
-{
-    int min = arr.A[0];
-    for (int i = 1; i < arr.length; i++)
-    {
-        if (arr.A[i] < min)
-        {
-            min = arr.A[i];
-        }
-    }
-    return min;
-}
-
-// sum of the array
-int Sum(Array arr)
-{
-    int s = 0;
-    for (int i = 0; i < arr.length; i++)
-    {
-        s += arr.A[i];
-    }
-    return s;
-}
-
-// avarage of an array
-float Avarage(Array arr)
-{
-    return (float)Sum(arr) / arr.length;
-}
-
-// Reverse the array
-void Reverse(Array *arr)
-{
-    int swap;
-    for (int i = 0, j = arr->length - 1; i <= j; i++, j--)
-    {
-        swap = arr->A[i];
-        arr->A[i] = arr->A[j];
-        arr->A[j] = swap;
-    }
-}
 
 int main()
 {
-    struct Array arr;
-    int ch, x, index, s;
+    int ch, x, index, s, sz;
     float avg;
     cout << "Enter size of the array: ";
-    cin >> arr.size;
+    cin >> sz;
 
-    arr.A = new int[arr.size];
+    Array arr(sz);
 
     do
     {
@@ -210,36 +72,202 @@ int main()
         case 1:
             cout << "Enter an index and a value: ";
             cin >> index >> x;
-            Insert(&arr, index, x);
+            arr.Insert(index, x);
             break;
         case 2:
             cout << "Enter the address where to delete: ";
             cin >> index;
-            Delete(&arr, index);
+            arr.Delete(index);
             break;
         case 3:
             cout << "Enter a key: ";
             cin >> x;
-            s = BinarySearch(arr, x);
+            s = arr.BinarySearch(x);
             cout << "Index of search: " << s << endl;
             break;
         case 4:
-            avg = Avarage(arr);
+            avg = arr.Avarage();
             cout << "Avarage: " << avg << endl;
             break;
         case 5:
-            Reverse(&arr);
+            arr.Reverse();
             cout << "Array is reversed";
             break;
         case 6:
-            Display(arr);
+            arr.Display();
             break;
         }
     } while (ch < 7);
 
-    Display(arr);
-    Reverse(&arr);
-    Display(arr);
-
     return 0;
+}
+
+// get function
+int Array::Get(int index)
+{
+    if (index >= 0 && index < length)
+    {
+        return A[index];
+    }
+    return 0;
+}
+
+// set function
+void Array::Set(int index, int x)
+{
+    if (index >= 0 && index < length)
+    {
+        A[index] = x;
+    }
+}
+
+// display the array
+void Array::Display()
+{
+    for (int i = 0; i < length; i++)
+    {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+
+// Append - add an element at the end of the array.
+void Array::Append(int x)
+{
+    if (length < size)
+    {
+        A[length] = x;
+        length++;
+    }
+}
+
+// Insert - Add an element at any index of the array.
+void Array::Insert(int index, int x)
+{
+    if (index >= 0 && index <= length + 1 && index < size)
+    {
+        if (length < size)
+        {
+            length++;
+            for (int i = length - 1; i > index; i--)
+            {
+                A[i] = A[i - 1];
+            }
+            A[index] = x;
+        }
+    }
+}
+
+// Delete an element from the array
+int Array::Delete(int index)
+{
+    if (index >= 0 && index < length - 1)
+    {
+        int item = A[index];
+        for (int i = index; i < length - 1; i++)
+        {
+            A[i] = A[i + 1];
+        }
+        length--;
+        return item;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Linear search on the array
+int Array::LinearSearch(int key)
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (A[i] == key)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Binary search on the array
+int Array::BinarySearch(int key)
+{
+    int l, h, mid = 0;
+    l = 0;
+    h = length - 1;
+    while (l <= h)
+    {
+        mid = (l + h) / 2;
+        if (A[mid] == key)
+        {
+            return mid;
+        }
+        else if (A[mid] > key)
+        {
+            h = mid - 1;
+        }
+        else
+        {
+            l = mid + 1;
+        }
+    }
+    return -1;
+}
+
+// find the max function
+int Array::Max()
+{
+    int max = A[0];
+    for (int i = 1; i < length; i++)
+    {
+        if (A[i] > max)
+        {
+            max = A[i];
+        }
+    }
+    return max;
+}
+
+// find the minimum function
+int Array::Min()
+{
+    int min = A[0];
+    for (int i = 1; i < length; i++)
+    {
+        if (A[i] < min)
+        {
+            min = A[i];
+        }
+    }
+    return min;
+}
+
+// sum of the array
+int Array::Sum()
+{
+    int s = 0;
+    for (int i = 0; i < length; i++)
+    {
+        s += A[i];
+    }
+    return s;
+}
+
+// avarage of an array
+float Array::Avarage()
+{
+    return (float)Sum() / length;
+}
+
+// Reverse the array
+void Array::Reverse()
+{
+    int swap;
+    for (int i = 0, j = length - 1; i <= j; i++, j--)
+    {
+        swap = A[i];
+        A[i] = A[j];
+        A[j] = swap;
+    }
 }
