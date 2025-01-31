@@ -21,6 +21,7 @@ public:
     CircularList(int A[], int n);
     void Display();
     void Insert(int pos, int x);
+    int Length();
 };
 
 /*********************************************************************
@@ -33,6 +34,7 @@ int main()
     CircularList cl(A, 5);
     cl.Insert(5, 10);
     cl.Display();
+    cout << "Length: " << cl.Length() << endl;
 
     return 0;
 }
@@ -102,4 +104,14 @@ void CircularList::Insert(int pos, int x)
         t->next = p->next;
         p->next = t;
     }
+}
+
+int CircularList::Length(){
+    Node *p = head;
+    int count = 0;
+    do{
+        count++;
+        p=p->next;
+    }while(p!=head);
+    return count;
 }
