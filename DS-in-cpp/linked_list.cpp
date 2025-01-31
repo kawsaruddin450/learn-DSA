@@ -21,7 +21,12 @@ public:
     LinkedList(int A[], int n);
     void Display();
     int Count();
+    void Insert(int pos, int x);
 };
+
+/********************************************************************************
+                                 MAIN FUNCTION
+ ********************************************************************************/
 
 int main(){
     int A[] = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -31,6 +36,9 @@ int main(){
 
     return 0;
 }
+/********************************************************************************
+                                 END
+ ********************************************************************************/
 
 LinkedList::LinkedList(int A[], int n)
 {
@@ -67,4 +75,22 @@ int LinkedList::Count(){
         p = p->next;
     }
     return count;
+}
+void LinkedList::Insert(int pos, int x){
+    Node *t = new Node;
+    t->data = x;
+    if(pos==0){
+        t->next = first;
+        first = t;
+    }
+    else{
+        Node *p;
+        p=first;
+        for(int i=0; i<pos-1; i++){
+            p = p->next;
+        }
+        t->next = p->next;
+        p->next = t;
+        p=NULL;
+    }
 }
