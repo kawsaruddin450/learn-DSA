@@ -22,6 +22,7 @@ public:
     void Display();
     void Insert(int pos, int x);
     int Length();
+    void Delete(int pos);
 };
 
 /*********************************************************************
@@ -33,6 +34,7 @@ int main()
     int A[] = {1, 2, 3, 4, 5};
     CircularList cl(A, 5);
     cl.Insert(5, 10);
+    cl.Delete(10);
     cl.Display();
     cout << "Length: " << cl.Length() << endl;
 
@@ -106,12 +108,50 @@ void CircularList::Insert(int pos, int x)
     }
 }
 
-int CircularList::Length(){
+int CircularList::Length()
+{
     Node *p = head;
     int count = 0;
-    do{
+    do
+    {
         count++;
-        p=p->next;
-    }while(p!=head);
+        p = p->next;
+    } while (p != head);
     return count;
+}
+
+void CircularList::Delete(int pos)
+{
+    Node *p, *q;
+    if (pos <= 0 || pos >= this->Length())
+    {
+        cout << "Deletion is not possible, Index out of range!" << endl;
+    }
+    else
+    {
+        if (pos == 1)
+        {
+            p = head;
+            q = head;
+            while (q->next != head)
+            {
+                q = q->next;
+            }
+            q->next = head->next;
+            head = head->next;
+            delete p;
+        }
+        else
+        {
+            p = head;
+            q = NULL;
+            for (int i = 0; i < pos - 1; i++)
+            {
+                q = p;
+                p = p->next;
+            }
+            q->next = p->next;
+            delete p;
+        }
+    }
 }
