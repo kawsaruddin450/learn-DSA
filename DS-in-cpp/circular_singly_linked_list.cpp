@@ -1,52 +1,105 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Node{
-    public:
-        int data;
-        Node *next;
+class Node
+{
+public:
+    int data;
+    Node *next;
 };
 
-class CircularList{
-    private:
-        Node *head;
-    public:
-        CircularList(){
-            head = NULL;
-        }
-        CircularList(int A[], int n);
-        void Display();
+class CircularList
+{
+private:
+    Node *head;
+
+public:
+    CircularList()
+    {
+        head = NULL;
+    }
+    CircularList(int A[], int n);
+    void Display();
+    void Insert(int pos, int x);
 };
 
-int main(){
+/*********************************************************************
+                        MAIN FUNCTION
+**********************************************************************/
+
+int main()
+{
     int A[] = {1, 2, 3, 4, 5};
     CircularList cl(A, 5);
+    cl.Insert(5, 10);
     cl.Display();
 
     return 0;
 }
 
-CircularList::CircularList(int A[], int n){
+/*********************************************************************
+                        END
+**********************************************************************/
+
+CircularList::CircularList(int A[], int n)
+{
     Node *p = new Node;
     Node *last;
-    p->data= A[0];
+    p->data = A[0];
     p->next = p;
     head = p;
     last = p;
-    for(int i=1; i<n; i++){
+    for (int i = 1; i < n; i++)
+    {
         Node *t = new Node;
         t->data = A[i];
         t->next = last->next;
         last->next = t;
-        last=t;
+        last = t;
     }
 }
 
-void CircularList::Display(){
+void CircularList::Display()
+{
     Node *p = head;
-    do{
+    do
+    {
         cout << p->data << " ";
-        p=p->next;
-    }while(p!=head);
+        p = p->next;
+    } while (p != head);
     cout << endl;
+}
+
+void CircularList::Insert(int pos, int x)
+{
+    Node *t = new Node;
+    Node *p = head;
+    t->data = x;
+    if (pos == 0)
+    {
+        if (head == NULL)
+        {
+            head = t;
+            head->next = head;
+        }
+        else
+        {
+            t->next = head;
+            while (p->next != head)
+            {
+                p = p->next;
+            }
+            p->next = t;
+            head = t;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < pos - 1; i++)
+        {
+            p = p->next;
+        }
+        t->next = p->next;
+        p->next = t;
+    }
 }
