@@ -23,6 +23,7 @@ public:
     int Count();
     void Insert(int pos, int x);
     void Delete(int pos);
+    void Reverse();
 };
 
 /********************************************************************************
@@ -32,7 +33,7 @@ public:
 int main(){
     int A[] = {1, 2, 3, 4, 5, 6, 7, 8};
     LinkedList Ll(A, 8);
-    Ll.Delete(0);
+    Ll.Reverse();
     Ll.Display();
     cout << "Number of elements in the linked list: " << Ll.Count() << endl;
 
@@ -113,4 +114,16 @@ void LinkedList::Delete(int pos){
         q->next = p->next;
         delete p;
     }
+}
+void LinkedList::Reverse(){
+    Node *p, *q, *r;
+    p=first;
+    q=r=NULL;
+    while(p){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next = r;
+    }
+    first = q;
 }
