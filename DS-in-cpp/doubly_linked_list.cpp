@@ -20,6 +20,7 @@ public:
     }
     DoublyList(int A[], int n);
     void Display();
+    int Length();
 };
 
 /*********************************************************************
@@ -31,6 +32,7 @@ int main()
     int A[] = {1, 2, 3, 4, 5};
     DoublyList dl(A, 5);
     dl.Display();
+    cout << "Length of the list: " << dl.Length() << endl;
 
     return 0;
 }
@@ -68,4 +70,14 @@ void DoublyList::Display()
         p = p->next;
     }
     cout << endl;
+}
+
+int DoublyList::Length(){
+    Node *p = first;
+    int len = 0;
+    while(p){
+        len++;
+        p=p->next;
+    }
+    return len;
 }
