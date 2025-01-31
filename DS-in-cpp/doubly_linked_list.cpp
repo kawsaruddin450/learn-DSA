@@ -21,6 +21,7 @@ public:
     DoublyList(int A[], int n);
     void Display();
     int Length();
+    void Insert(int pos, int x);
 };
 
 /*********************************************************************
@@ -31,6 +32,7 @@ int main()
 {
     int A[] = {1, 2, 3, 4, 5};
     DoublyList dl(A, 5);
+    dl.Insert(5, 10);
     dl.Display();
     cout << "Length of the list: " << dl.Length() << endl;
 
@@ -72,12 +74,50 @@ void DoublyList::Display()
     cout << endl;
 }
 
-int DoublyList::Length(){
+int DoublyList::Length()
+{
     Node *p = first;
     int len = 0;
-    while(p){
+    while (p)
+    {
         len++;
-        p=p->next;
+        p = p->next;
     }
     return len;
+}
+
+void DoublyList::Insert(int pos, int x)
+{
+    Node *t, *p;
+    if (pos < 0 || pos > this->Length())
+    {
+        cout << "Index out of range. Insertion not possible." << endl;
+    }
+    else
+    {
+        p = first;
+        t = new Node;
+        t->data = x;
+        if (pos == 0)
+        {
+            t->prev = NULL;
+            t->next = first;
+            first->prev = t;
+            first = t;
+        }
+        else
+        {
+            Node *q;
+            for (int i = 1; i < pos; i++)
+            {
+                p = p->next;
+            }
+            t->next = p->next;
+            t->prev = p;
+            p->next = t;
+            q = t->next;
+            if (q)
+                q->prev = t;
+        }
+    }
 }
