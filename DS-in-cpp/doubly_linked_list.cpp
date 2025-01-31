@@ -20,10 +20,10 @@ public:
     }
     DoublyList(int A[], int n);
     void Display();
-    void DisplayReverse();
     int Length();
     void Insert(int pos, int x);
     void Delete(int pos);
+    void Reverse();
 };
 
 /*********************************************************************
@@ -34,9 +34,9 @@ int main()
 {
     int A[] = {1, 2, 3, 4, 5};
     DoublyList dl(A, 5);
-    dl.Delete(4);
     dl.Display();
-    dl.DisplayReverse();
+    dl.Reverse();
+    dl.Display();
     cout << "Length of the list: " << dl.Length() << endl;
 
     return 0;
@@ -75,21 +75,6 @@ void DoublyList::Display()
         p = p->next;
     }
     cout << endl;
-}
-
-void DoublyList::DisplayReverse()
-{
-    Node *p = first;
-    while (p->next)
-    {
-        p = p->next;
-    }
-    while(p){
-        cout << p->data << " ";
-        p=p->prev;
-    }
-    cout << endl;
-    
 }
 
 int DoublyList::Length()
@@ -168,6 +153,20 @@ void DoublyList::Delete(int pos)
                 (p->next)->prev = p->prev;
             }
             delete p;
+        }
+    }
+}
+
+void DoublyList::Reverse(){
+    Node *p, *temp;
+    p = first;
+    while(p){
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+        p=p->prev;
+        if(p!= NULL && p->next == NULL){
+            first = p;
         }
     }
 }
