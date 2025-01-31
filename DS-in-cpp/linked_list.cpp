@@ -20,12 +20,14 @@ public:
     }
     LinkedList(int A[], int n);
     void Display();
+    int Count();
 };
 
 int main(){
-    int A[] = {1, 2, 3, 4, 5};
-    LinkedList Ll(A, 5);
+    int A[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    LinkedList Ll(A, 8);
     Ll.Display();
+    cout << "Number of elements in the linked list: " << Ll.Count() << endl;
 
     return 0;
 }
@@ -54,4 +56,15 @@ void LinkedList::Display(){
         cout << p->data << " ";
         p = p->next;
     }
+    cout << endl;
+}
+int LinkedList::Count(){
+    Node *p;
+    int count = 0;
+    p=first;
+    while(p){
+        count++;
+        p = p->next;
+    }
+    return count;
 }
