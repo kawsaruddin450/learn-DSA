@@ -16,8 +16,10 @@ public:
     }
     void Push(int x);
     int Pop();
+    bool isEmpty();
     void Display();
     int Peek(int index);
+    int StackTop();
 };
 
 void Stack::Push(int x){
@@ -30,13 +32,19 @@ void Stack::Push(int x){
 int Stack::Pop(){
     Node *p = top;
     int x = -1;
-    if(top == NULL){
+    if(this->isEmpty()){
         cout << "Stack Underflow." << endl;
     }
     top = top->next;
     x=p->data;
     delete p;
     return x;
+}
+
+bool Stack::isEmpty(){
+    if(top==NULL)
+        return true;
+    return false;
 }
 
 void Stack::Display(){
@@ -58,13 +66,20 @@ int Stack::Peek(int index){
         for(int i=1; p!=NULL && i<index; i++){
             p=p->next;
         }
-        if(p==NULL){
+        if(this->isEmpty()){
             return -1;
         }
         else{
             return p->data;
         }
     }
+}
+
+int Stack::StackTop(){
+    if(this->isEmpty()){
+        return -1;
+    }
+    return top->data;
 }
 
 int main(){
@@ -77,7 +92,7 @@ int main(){
     st.Pop();
     st.Display();
     
-    cout << st.Peek(1);
+    cout << st.StackTop();
 
     return 0;
 }
