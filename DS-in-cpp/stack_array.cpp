@@ -18,6 +18,9 @@ public:
     Stack(int size);
     void Display();
     void Push(int x);
+    int Pop();
+    int Peek(int index);
+    int StackTop();
 };
 
 Stack::Stack(int size)
@@ -28,10 +31,11 @@ Stack::Stack(int size)
 }
 void Stack::Display()
 {
-    while (top >= 0)
+    int n=top;
+    while (n >= 0)
     {
-        cout << S[top] << " ";
-        top--;
+        cout << S[n] << " ";
+        n--;
     }
     cout << endl;
 }
@@ -40,11 +44,40 @@ void Stack::Push(int x)
 {
     if (top == size - 1)
     {
-        cout << "Stack is full, push is not possible." << endl;
+        cout << "Stack Overflow." << endl;
         return;
     }
     top++;
     S[top] = x;
+}
+
+int Stack::Pop(){
+    int x = -1;
+    if(top==-1){
+        cout << "Stack Underflow.";
+    }
+    else{
+        x = S[top];
+        top--;
+    }
+    return x;
+}
+
+int Stack::Peek(int index){
+    int x= -1;
+    if((top+1-index) < 0){
+        cout << "Invalid index." << endl;
+    }
+    else{
+        x = S[top-index+1];
+    }
+    return x;
+}
+
+int Stack::StackTop(){
+    if(top==-1)
+        return -1;
+    return S[top];
 }
 
 int main()
@@ -55,6 +88,8 @@ int main()
         st.Push(A[i]);
     }
     st.Display();
+    cout << st.Peek(2);
+    
 
     return 0;
 }
