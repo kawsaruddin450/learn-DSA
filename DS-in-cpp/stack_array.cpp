@@ -1,37 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+template <class T>
 class Stack
 {
 private:
     int size;
     int top;
-    int *S;
+    T *S;
 
 public:
     Stack()
     {
         size = 10;
         top = -1;
-        S = new int[size];
+        S = new T[size];
     }
     Stack(int size);
     void Display();
-    void Push(int x);
-    int Pop();
-    int Peek(int index);
-    int StackTop();
+    void Push(T x);
+    T Pop();
+    T Peek(int index);
+    T StackTop();
     bool isEmpty();
     bool isFull();
 };
 
-Stack::Stack(int size)
+template<class T>
+Stack<T>::Stack(int size)
 {
     this->size = size;
     top = -1;
-    S = new int[size];
+    S = new T[size];
 }
-void Stack::Display()
+template<class T>
+void Stack<T>::Display()
 {
     int n=top;
     while (n >= 0)
@@ -42,7 +46,8 @@ void Stack::Display()
     cout << endl;
 }
 
-void Stack::Push(int x)
+template<class T>
+void Stack<T>::Push(T x)
 {
     if (top == size - 1)
     {
@@ -53,8 +58,9 @@ void Stack::Push(int x)
     S[top] = x;
 }
 
-int Stack::Pop(){
-    int x = -1;
+template<class T>
+T Stack<T>::Pop(){
+    T x = -1;
     if(this->isEmpty()){
         cout << "Stack Underflow.";
     }
@@ -65,8 +71,9 @@ int Stack::Pop(){
     return x;
 }
 
-int Stack::Peek(int index){
-    int x= -1;
+template<class T>
+T Stack<T>::Peek(int index){
+    T x= -1;
     if((top+1-index) < 0){
         cout << "Invalid index." << endl;
     }
@@ -76,20 +83,23 @@ int Stack::Peek(int index){
     return x;
 }
 
-int Stack::StackTop(){
+template<class T>
+T Stack<T>::StackTop(){
     if(this->isEmpty())
         return -1;
     return S[top];
 }
 
-bool Stack::isEmpty(){
+template<class T>
+bool Stack<T>::isEmpty(){
     if(top==-1){
         return true;
     }
     return false;
 }
 
-bool Stack::isFull(){
+template<class T>
+bool Stack<T>::isFull(){
     if(top == size-1){
         return true;
     }
@@ -98,9 +108,9 @@ bool Stack::isFull(){
 
 int main()
 {
-    int A[] = {1, 2, 3, 4, 5};
-    Stack st(5);
-    for(int i=0; i<5; i++){
+    string A = "Kawsar";
+    Stack<char> st(7);
+    for(int i=0; A[i]; i++){
         st.Push(A[i]);
     }
     st.Display();
