@@ -15,20 +15,16 @@ public:
         top = -1;
         S = new int[size];
     }
-    Stack(int A[], int size);
+    Stack(int size);
     void Display();
+    void Push(int x);
 };
 
-Stack::Stack(int A[], int size)
+Stack::Stack(int size)
 {
     this->size = size;
     top = -1;
     S = new int[size];
-    for (int i = 0; i < size; i++)
-    {
-        S[i] = A[i];
-        top++;
-    }
 }
 void Stack::Display()
 {
@@ -40,10 +36,24 @@ void Stack::Display()
     cout << endl;
 }
 
+void Stack::Push(int x)
+{
+    if (top == size - 1)
+    {
+        cout << "Stack is full, push is not possible." << endl;
+        return;
+    }
+    top++;
+    S[top] = x;
+}
+
 int main()
 {
     int A[] = {1, 2, 3, 4, 5};
-    Stack st(A, 5);
+    Stack st(10);
+    for(int i=0; i<5; i++){
+        st.Push(A[i]);
+    }
     st.Display();
 
     return 0;
