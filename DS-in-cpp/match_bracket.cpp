@@ -116,18 +116,22 @@ bool Stack<T>::isFull()
     return false;
 }
 
-bool matchBrackets(string str, Stack<char> *st)
+bool matchBrackets(string str, Stack<char> st)
 {
     for (int i = 0; str[i]; i++)
     {
-        if(str[i]=='(')
-            st->Push(str[i]);
-        else if(str[i]==')'){
-            if(st->isEmpty()) return false;
-            else st->Pop();
+        if(str[i]=='('  || str[i] == '{' || str[i] == '[')
+            st.Push(str[i]);
+        else if(str[i]==')' || str[i] == '}' || str[i] == ']'){
+            if(st.isEmpty()) return false;
+            else{
+                char x = st.Pop();
+                if((x>90 && str[i]-x != 2) || (x<70 && str[i]-x != 1))
+                    return false;
+            }
         }
     }
-    if(st->isEmpty()) return true;
+    if(st.isEmpty()) return true;
     else return false;
 }
 
@@ -137,11 +141,11 @@ int main()
     cout << "Enter an expression: ";
     cin >> exp;
     Stack<char> st(exp.length());
-    bool matched = matchBrackets(exp, &st);
+    bool matched = matchBrackets(exp, st);
     if(matched)
-        cout << "Matched Parenthesis" << endl;
+        cout << "Matched Brackets" << endl;
     else
-        cout << "Parenthesis not matched" << endl;
+        cout << "Brackets not matched" << endl;
     
 
     return 0;
