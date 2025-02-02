@@ -21,6 +21,8 @@ public:
     int Pop();
     int Peek(int index);
     int StackTop();
+    bool isEmpty();
+    bool isFull();
 };
 
 Stack::Stack(int size)
@@ -53,7 +55,7 @@ void Stack::Push(int x)
 
 int Stack::Pop(){
     int x = -1;
-    if(top==-1){
+    if(this->isEmpty()){
         cout << "Stack Underflow.";
     }
     else{
@@ -75,20 +77,38 @@ int Stack::Peek(int index){
 }
 
 int Stack::StackTop(){
-    if(top==-1)
+    if(this->isEmpty())
         return -1;
     return S[top];
+}
+
+bool Stack::isEmpty(){
+    if(top==-1){
+        return true;
+    }
+    return false;
+}
+
+bool Stack::isFull(){
+    if(top == size-1){
+        return true;
+    }
+    return false;
 }
 
 int main()
 {
     int A[] = {1, 2, 3, 4, 5};
-    Stack st(10);
+    Stack st(5);
     for(int i=0; i<5; i++){
         st.Push(A[i]);
     }
     st.Display();
-    cout << st.Peek(2);
+    cout << st.Peek(2) << endl;
+    bool empty = st.isEmpty();
+    bool full = st.isFull();
+    cout << empty << endl;
+    cout << full << endl;
     
 
     return 0;
