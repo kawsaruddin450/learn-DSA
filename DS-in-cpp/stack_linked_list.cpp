@@ -17,6 +17,7 @@ public:
     void Push(int x);
     int Pop();
     void Display();
+    int Peek(int index);
 };
 
 void Stack::Push(int x){
@@ -47,6 +48,25 @@ void Stack::Display(){
     cout << endl;
 }
 
+int Stack::Peek(int index){
+    if(top==NULL){
+        cout << "Stack is empty." << endl;
+        return -1;
+    }
+    else{
+        Node *p = top;
+        for(int i=1; p!=NULL && i<index; i++){
+            p=p->next;
+        }
+        if(p==NULL){
+            return -1;
+        }
+        else{
+            return p->data;
+        }
+    }
+}
+
 int main(){
     Stack st;
     int A[] = {1, 2, 3, 4, 5, 6, 7};
@@ -56,6 +76,8 @@ int main(){
     st.Display();
     st.Pop();
     st.Display();
+    
+    cout << st.Peek(1);
 
     return 0;
 }
