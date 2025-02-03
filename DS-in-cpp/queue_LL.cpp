@@ -18,6 +18,7 @@ public:
     }
     void Enqueue(int x);
     void Display();
+    int Dequeue();
 };
 
 void Queue::Enqueue(int x){
@@ -46,6 +47,19 @@ void Queue::Display(){
     cout << endl;
 }
 
+int Queue::Dequeue(){
+    Node *p = front;
+    int x = -1;
+    if(front==NULL){
+        cout << "Queue is empty." << endl;
+    }else{
+        front = front->next;
+        x = p->data;
+        delete p;
+    }
+    return x;
+}
+
 int main(){
     int A[] = {1, 2, 3, 4, 5};
     Queue q;
@@ -53,6 +67,7 @@ int main(){
         q.Enqueue(A[i]);
     }
     q.Enqueue(10);
+    cout << q.Dequeue() << endl;
     q.Display();
 
     return 0;
