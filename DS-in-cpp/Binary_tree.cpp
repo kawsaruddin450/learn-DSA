@@ -10,11 +10,13 @@ public:
     Tree(){root=NULL;};
     void CreateTree();
     void Preorder(Node *p);
-    void Preorder(){Preorder(root);}
+    void Preorder(){Preorder(root);};
     void Inorder(Node *p);
-    void Inorder(){Inorder(root);}
+    void Inorder(){Inorder(root);};
     void Postorder(Node *p);
-    void Postorder(){Postorder(root);}
+    void Postorder(){Postorder(root);};
+    void Levelorder(Node *p);
+    void Levelorder(){Levelorder(root);};
 };
 
 void Tree::CreateTree()
@@ -75,11 +77,29 @@ void Tree::Postorder(Node *p){
     }
 }
 
+void Tree::Levelorder(Node *p){
+    Queue q(100);
+    cout << p->data << " ";
+    q.Enqueue(p);
+    while(!q.isEmpty()){
+        p=q.Dequeue();
+        if(p->lchild){
+            cout << p->lchild->data << " ";
+            q.Enqueue(p->lchild);
+        }
+        if(p->rchild){
+            cout << p->rchild->data << " ";
+            q.Enqueue(p->rchild);
+        }
+    }
+}
+
 
 int main(){
     Tree T;
     T.CreateTree();
     T.Preorder();
+    T.Levelorder();
 
     return 0;
 }
