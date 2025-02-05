@@ -17,6 +17,8 @@ public:
     void Postorder(){Postorder(root);};
     void Levelorder(Node *p);
     void Levelorder(){Levelorder(root);};
+    int count(){count(root);};
+    int count(Node *p);
 };
 
 void Tree::CreateTree()
@@ -94,12 +96,20 @@ void Tree::Levelorder(Node *p){
     }
 }
 
+int Tree::count(Node *p){
+    if(p){
+        return count(p->lchild) + count(p->rchild) +1;
+    }
+    return 0;
+}
+
 
 int main(){
     Tree T;
     T.CreateTree();
     T.Preorder();
     T.Levelorder();
+    cout << T.count() << endl;;
 
     return 0;
 }
