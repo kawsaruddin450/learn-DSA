@@ -1,24 +1,32 @@
-#ifndef Queue_H
-#define Queue_H
+#ifndef TQueue_H
+#define TQueue_H
 
 #include<bits/stdc++.h>
 using namespace std;
+
+class Node{
+    public:
+        Node *lchild;
+        int data;
+        Node *rchild;
+};
 
 class Queue{
 private:
     int size;
     int front;
     int rear;
-    int *Q;
+    Node **Q;
 public:
-    Queue(){size=10;front=0;rear=0;Q=new int[size];}
-    Queue(int size){this->size=size;front=0;rear=0;Q=new int[size];}
-    void Enqueue(int x);
+    Queue(){size=10;front=0;rear=0;Q=new Node*[size];}
+    Queue(int size){this->size=size;front=0;rear=0; Q=new Node*[size];}
+    void Enqueue(Node* x);
     void Display();
-    int Dequeue();
+    Node* Dequeue();
+    bool isEmpty();
 };
 
-void Queue::Enqueue(int x){
+void Queue::Enqueue(Node* x){
     if((rear+1)%size == front){
         cout << "Queue is full" << endl;
         return;
@@ -27,8 +35,8 @@ void Queue::Enqueue(int x){
     Q[rear] = x;
 }
 
-int Queue::Dequeue(){
-    int x = -1;
+Node* Queue::Dequeue(){
+    Node* x = NULL;
     if(front==rear){
         cout << "Queue is empty";
     }
@@ -50,6 +58,10 @@ void Queue::Display(){
         i = (i+1)%size;
     }while(i!= (rear+1)%size);
     cout << endl;
+}
+
+bool Queue::isEmpty(){
+    return front == rear;
 }
 
 
