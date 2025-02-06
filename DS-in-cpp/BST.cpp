@@ -20,6 +20,8 @@ public:
     void Inorder(){Inorder(root);};
     void Inorder(Node *p);
     Node *Search(int key);
+    int Height(){Height(root);};
+    int Height(Node *p);
 };
 
 void BST::Insert(int x){
@@ -81,16 +83,27 @@ Node* BST::Search(int key){
     return nullptr;
 }
 
+int BST::Height(Node *p){
+    int x, y;
+    if(p==nullptr){
+        return 0;
+    }
+    x = Height(p->lchild);
+    y = Height(p->rchild);
+    return x > y ? x+1 : y+1;
+}
+
 int main(){
     BST b;
-    int A[] = {23, 56, 11, 98, 34, 10, 7};
-    for(int i=0; i<7; i++){
+    int A[] = {23, 56, 11};
+    for(int i=0; i<3; i++){
         b.Insert(A[i]);
     }
     b.Inorder();
     Node* temp = b.Search(10);
     if(temp) cout << temp->data << endl;
     else cout << "Item not found." << endl;
+    cout << b.Height() << endl;
 
     return 0;
 }
